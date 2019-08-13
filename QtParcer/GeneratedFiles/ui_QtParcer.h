@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -29,6 +30,7 @@ public:
     QLineEdit *lineEdit;
     QTextEdit *textEdit;
     QPushButton *pushButton;
+    QComboBox *comboBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -42,13 +44,16 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(20, 20, 113, 22));
+        lineEdit->setGeometry(QRect(20, 80, 113, 22));
         textEdit = new QTextEdit(centralWidget);
         textEdit->setObjectName(QStringLiteral("textEdit"));
         textEdit->setGeometry(QRect(170, 20, 371, 181));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(30, 60, 93, 28));
+        pushButton->setGeometry(QRect(30, 120, 93, 28));
+        comboBox = new QComboBox(centralWidget);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(20, 30, 111, 22));
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));

@@ -6,6 +6,9 @@
 #include <qnetworkrequest.h>
 #include <qnetworkreply.h>
 #include <qtextcodec.h>
+#include <qstring.h>
+#include <qvector.h>
+#include <qmap.h>
 #include "ui_QtParcer.h"
 
 
@@ -19,7 +22,12 @@ public:
 private:
 	Ui::QtParcerClass ui;
 	QNetworkAccessManager* manager;
-private slots:
+	QMap<int, QString>city;
+	QMap<int, QString>::iterator it;
+	QString gismeteo;
+	void insert_city_http();
+	void insert_city_combo_box();
+private slots:	
 	void on_pushButton_clicked();
 	void replyFinished();
 };
