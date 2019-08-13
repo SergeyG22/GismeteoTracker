@@ -1,36 +1,39 @@
-#include "QtParcer.h"
+Ôªø#include "QtParcer.h"
+
+// utf-8 for git
+
 
 QtParcer::QtParcer(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.lineEdit->setText("https://www.gismeteo.ru/weather-sankt-peterburg-4079/now/");
-	manager = new QNetworkAccessManager(this); // ÒÓÁ‰‡ÂÏ Ó·¸ÂÍÚ ÔÓ‰ÍÎ˛˜ÂÌËˇ
+	manager = new QNetworkAccessManager(this); // —Å–æ–∑–¥–∞–µ–º –æ–±—å–µ–∫—Ç –ø–æ–¥–∫–ª—é—á–µ–Ω–∏—è
 }
 
 void QtParcer::on_pushButton_clicked()
 {
-	QUrl url(ui.lineEdit->text());            // ÔÓÎÛ˜‡ÂÏ URL
-	QNetworkRequest request(url);             // ÓÚÔ‡‚ÎˇÂÏ Á‡ÔÓÒ ÔÓ URL
-	QNetworkReply* reply = manager->get(request); // ÔÓÎÛ˜‡ÂÏ ÓÚ‚ÂÚ
-	connect(reply,SIGNAL(finished()),this,SLOT(replyFinished())); // „ÂÌÂËÛÂÏ ÒÎÓÚ ÔÓ‰ÍÎ˛˜ÂÌËˇ
+	QUrl url(ui.lineEdit->text());            // –ø–æ–ª—É—á–∞–µ–º URL
+	QNetworkRequest request(url);             // –æ—Ç–ø—Ä–∞–≤–ª—è–µ–º –∑–∞–ø—Ä–æ—Å –ø–æ URL
+	QNetworkReply* reply = manager->get(request); // –ø–æ–ª—É—á–∞–µ–º –æ—Ç–≤–µ—Ç
+	connect(reply,SIGNAL(finished()),this,SLOT(replyFinished())); // –≥–µ–Ω–µ—Ä–∏—Ä—É–µ–º —Å–ª–æ—Ç –ø–æ–¥–∫–ª—é—á–µ–Ω–∏—è
 }
 
 void QtParcer::replyFinished()
 {
 	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
-	if (reply->error() == QNetworkReply::NoError)                    // ÂÒÎË ÌÂÚ Ó¯Ë·ÓÍ
+	if (reply->error() == QNetworkReply::NoError)                    // –µ—Å–ª–∏ –Ω–µ—Ç –æ—à–∏–±–æ–∫
 	{
-		QByteArray content = reply->readAll();                       // ÒÓı‡ÌˇÂÏ ‚ Ï‡ÒÒË‚ ·‡ÈÚÓ‚
-		QTextCodec* codec = QTextCodec::codecForName("utf-8");       // ÔÂÓ·‡ÁÛÂÏ ÍÓ‰ËÓ‚ÍÛ
-		ui.textEdit->setPlainText(codec->toUnicode(content.data())); // ‚˚‚Ó‰ËÏ ÂÁÛÎ¸Ú‡Ú	
+		QByteArray content = reply->readAll();                       // —Å–æ—Ö—Ä–∞–Ω—è–µ–º –≤ –º–∞—Å—Å–∏–≤ –±–∞–π—Ç–æ–≤
+		QTextCodec* codec = QTextCodec::codecForName("utf-8");       // –ø—Ä–µ–æ–±—Ä–∞–∑—É–µ–º –∫–æ–¥–∏—Ä–æ–≤–∫—É
+		ui.textEdit->setPlainText(codec->toUnicode(content.data())); // –≤—ã–≤–æ–¥–∏–º —Ä–µ–∑—É–ª—å—Ç–∞—Ç	
 	}
-	else                                                            // ÂÒÎË Ó¯Ë·Í‡
+	else                                                            // –µ—Å–ª–∏ –æ—à–∏–±–∫–∞
 	{ 
-		ui.textEdit->setPlainText(reply->errorString());            // ÚÓ ‚˚‚Ó‰ËÏ Ó¯Ë·ÍÛ
+		ui.textEdit->setPlainText(reply->errorString());            // —Ç–æ –≤—ã–≤–æ–¥–∏–º –æ—à–∏–±–∫—É
 	}
 
 	
-	reply->deleteLater();                                       //Û‰‡ÎˇÂÏ Ó·¸ÂÍÚ ÓÚ‚ÂÚ‡
+	reply->deleteLater();                                       //—É–¥–∞–ª—è–µ–º –æ–±—å–µ–∫—Ç –æ—Ç–≤–µ—Ç–∞
 }
