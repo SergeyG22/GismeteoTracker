@@ -3,6 +3,8 @@
 #include <qvector.h>
 #include <qdebug.h>
 #include <iostream>
+#include <qregexp.h>
+
 // utf-8 for git
 
 
@@ -27,8 +29,7 @@ void QtParcer::on_pushButton_clicked()
 		{		    
 			
 			gismeteo = "https://www.gismeteo.ru/weather-" + it.value() + "-" + QString::number(it.key()) + "/now/";
-			ui.lineEdit->setText(gismeteo);	
-			QUrl url(ui.lineEdit->text());            // получаем URL
+			QUrl url(gismeteo);            // получаем URL
 			QNetworkRequest request(url);             // отправляем запрос по URL
 			QNetworkReply* reply = manager->get(request); // получаем ответ
 			connect(reply, SIGNAL(finished()), this, SLOT(replyFinished())); // генерируем слот подключения
@@ -51,7 +52,18 @@ void QtParcer::replyFinished()
 	{
 		QByteArray content = reply->readAll();                       // сохраняем в массив байтов
 		QTextCodec* codec = QTextCodec::codecForName("utf-8");       // преобразуем кодировку
-		ui.textEdit->setPlainText(codec->toUnicode(content.data())); // выводим результат	
+		get_html= QString(content);
+		QRegExp rx("\"C\":....");                                    // парсер html
+		int pos = rx.indexIn(get_html);
+		QStringList list = rx.capturedTexts();
+		QStringList::iterator iter;
+		for (iter = list.begin(); iter != list.end(); ++iter)
+		{
+			temperature = (*iter).toLocal8Bit().constData();
+			temperature.remove(0, 4);
+			ui.textEdit->setPlainText(temperature); // выводим результат
+		}                                                                
+		//codec->toUnicode(content.data())
 	}
 	else                                                            // если ошибка
 	{ 

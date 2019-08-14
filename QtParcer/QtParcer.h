@@ -25,6 +25,8 @@ private:
 	QMap<int, QString>city;
 	QMap<int, QString>::iterator it;
 	QString gismeteo;
+	QString get_html;
+	QString temperature;
 	void insert_city_http();
 	void insert_city_combo_box();
 private slots:	
