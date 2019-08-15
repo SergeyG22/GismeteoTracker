@@ -12,11 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -26,9 +25,11 @@ class Ui_QtParcerClass
 {
 public:
     QWidget *centralWidget;
-    QTextEdit *textEdit;
-    QPushButton *pushButton;
     QComboBox *comboBox;
+    QLabel *label_weather;
+    QLabel *label_temperature;
+    QLabel *label_data_time;
+    QComboBox *comboBox_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -37,22 +38,40 @@ public:
     {
         if (QtParcerClass->objectName().isEmpty())
             QtParcerClass->setObjectName(QStringLiteral("QtParcerClass"));
-        QtParcerClass->resize(600, 400);
+        QtParcerClass->resize(800, 300);
+        QFont font;
+        font.setPointSize(8);
+        QtParcerClass->setFont(font);
         centralWidget = new QWidget(QtParcerClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        textEdit = new QTextEdit(centralWidget);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(170, 20, 371, 181));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(30, 70, 93, 28));
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(20, 30, 111, 22));
+        comboBox->setGeometry(QRect(20, 25, 211, 30));
+        QFont font1;
+        font1.setPointSize(12);
+        comboBox->setFont(font1);
+        label_weather = new QLabel(centralWidget);
+        label_weather->setObjectName(QStringLiteral("label_weather"));
+        label_weather->setGeometry(QRect(500, 80, 81, 33));
+        QFont font2;
+        font2.setPointSize(16);
+        label_weather->setFont(font2);
+        label_temperature = new QLabel(centralWidget);
+        label_temperature->setObjectName(QStringLiteral("label_temperature"));
+        label_temperature->setGeometry(QRect(260, 80, 216, 33));
+        label_temperature->setFont(font2);
+        label_data_time = new QLabel(centralWidget);
+        label_data_time->setObjectName(QStringLiteral("label_data_time"));
+        label_data_time->setGeometry(QRect(250, 30, 511, 21));
+        label_data_time->setFont(font2);
+        comboBox_2 = new QComboBox(centralWidget);
+        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
+        comboBox_2->setGeometry(QRect(20, 70, 101, 31));
+        comboBox_2->setFont(font1);
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 26));
+        menuBar->setGeometry(QRect(0, 0, 800, 26));
         QtParcerClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(QtParcerClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -69,7 +88,9 @@ public:
     void retranslateUi(QMainWindow *QtParcerClass)
     {
         QtParcerClass->setWindowTitle(QApplication::translate("QtParcerClass", "QtParcer", nullptr));
-        pushButton->setText(QApplication::translate("QtParcerClass", "\320\276\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214", nullptr));
+        label_weather->setText(QString());
+        label_temperature->setText(QApplication::translate("QtParcerClass", "\320\242\320\265\320\274\320\277\320\265\321\200\320\260\321\202\321\203\321\200\320\260 \320\262 \320\241:", nullptr));
+        label_data_time->setText(QString());
     } // retranslateUi
 
 };

@@ -8,6 +8,7 @@
 #include <qtextcodec.h>
 #include <qstring.h>
 #include <qvector.h>
+#include <qtimer.h>
 #include <qmap.h>
 #include "ui_QtParcer.h"
 
@@ -27,9 +28,18 @@ private:
 	QString gismeteo;
 	QString get_html;
 	QString temperature;
+	QTimer *timer_data_change;
+	QTimer* timer_get_weather;
 	void insert_city_http();
-	void insert_city_combo_box();
-private slots:	
-	void on_pushButton_clicked();
+	void insert_city_combo_box();	
+	inline void QtParcer::current_time()
+	{
+		QDateTime data = QDateTime::currentDateTime();
+		ui.label_data_time->setText(QString::fromLocal8Bit("Обновлено: ") + data.toString());
+	};
+public slots:	
+	void send_to();
 	void replyFinished();
+	
+	
 };
