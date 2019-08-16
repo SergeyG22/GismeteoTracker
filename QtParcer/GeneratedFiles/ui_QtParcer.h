@@ -11,10 +11,14 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -29,7 +33,12 @@ public:
     QLabel *label_weather;
     QLabel *label_temperature;
     QLabel *label_data_time;
-    QComboBox *comboBox_2;
+    QListWidget *listWidget;
+    QPushButton *pushButton;
+    QWidget *widget;
+    QFormLayout *formLayout;
+    QCheckBox *checkBox_file_write;
+    QCheckBox *checkBox_change_list;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -38,7 +47,7 @@ public:
     {
         if (QtParcerClass->objectName().isEmpty())
             QtParcerClass->setObjectName(QStringLiteral("QtParcerClass"));
-        QtParcerClass->resize(800, 300);
+        QtParcerClass->resize(800, 400);
         QFont font;
         font.setPointSize(8);
         QtParcerClass->setFont(font);
@@ -52,7 +61,7 @@ public:
         comboBox->setFont(font1);
         label_weather = new QLabel(centralWidget);
         label_weather->setObjectName(QStringLiteral("label_weather"));
-        label_weather->setGeometry(QRect(500, 80, 81, 33));
+        label_weather->setGeometry(QRect(500, 80, 181, 33));
         QFont font2;
         font2.setPointSize(16);
         label_weather->setFont(font2);
@@ -64,10 +73,30 @@ public:
         label_data_time->setObjectName(QStringLiteral("label_data_time"));
         label_data_time->setGeometry(QRect(250, 30, 511, 21));
         label_data_time->setFont(font2);
-        comboBox_2 = new QComboBox(centralWidget);
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
-        comboBox_2->setGeometry(QRect(20, 70, 101, 31));
-        comboBox_2->setFont(font1);
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        listWidget->setGeometry(QRect(20, 80, 211, 192));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(70, 290, 111, 28));
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(640, 260, 142, 49));
+        formLayout = new QFormLayout(widget);
+        formLayout->setSpacing(6);
+        formLayout->setContentsMargins(11, 11, 11, 11);
+        formLayout->setObjectName(QStringLiteral("formLayout"));
+        formLayout->setContentsMargins(0, 0, 0, 0);
+        checkBox_file_write = new QCheckBox(widget);
+        checkBox_file_write->setObjectName(QStringLiteral("checkBox_file_write"));
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, checkBox_file_write);
+
+        checkBox_change_list = new QCheckBox(widget);
+        checkBox_change_list->setObjectName(QStringLiteral("checkBox_change_list"));
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, checkBox_change_list);
+
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -91,6 +120,9 @@ public:
         label_weather->setText(QString());
         label_temperature->setText(QApplication::translate("QtParcerClass", "\320\242\320\265\320\274\320\277\320\265\321\200\320\260\321\202\321\203\321\200\320\260 \320\262 \320\241:", nullptr));
         label_data_time->setText(QString());
+        pushButton->setText(QApplication::translate("QtParcerClass", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214 \321\201\320\277\320\270\321\201\320\276\320\272", nullptr));
+        checkBox_file_write->setText(QApplication::translate("QtParcerClass", "\321\201\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\262 \321\204\320\260\320\271\320\273", nullptr));
+        checkBox_change_list->setText(QApplication::translate("QtParcerClass", "\321\201\320\276\321\205\321\200\320\260\320\275\321\217\321\202\321\214 \321\201\320\277\320\270\321\201\320\276\320\272", nullptr));
     } // retranslateUi
 
 };

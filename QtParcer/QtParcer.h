@@ -10,6 +10,7 @@
 #include <qvector.h>
 #include <qtimer.h>
 #include <qmap.h>
+#include <qcheckbox.h>
 #include "ui_QtParcer.h"
 
 
@@ -25,6 +26,8 @@ private:
 	QNetworkAccessManager* manager;
 	QMap<int, QString>city;
 	QMap<int, QString>::iterator it;
+	bool b1 = true;
+	double current_t;
 	QString gismeteo;
 	QString get_html;
 	QString temperature;
@@ -32,12 +35,15 @@ private:
 	QTimer* timer_get_weather;
 	void insert_city_http();
 	void insert_city_combo_box();	
-	inline void QtParcer::current_time()
+	inline QString QtParcer::current_time()
 	{
 		QDateTime data = QDateTime::currentDateTime();
 		ui.label_data_time->setText(QString::fromLocal8Bit("Обновлено: ") + data.toString());
+		return data.toString();
 	};
-public slots:	
+	
+public slots:
+	void clear1();
 	void send_to();
 	void replyFinished();
 	
