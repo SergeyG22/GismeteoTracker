@@ -35,7 +35,7 @@ public:
     QLabel *label_data_time;
     QListWidget *listWidget;
     QPushButton *pushButton;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QFormLayout *formLayout;
     QCheckBox *checkBox_file_write;
     QCheckBox *checkBox_change_list;
@@ -47,7 +47,7 @@ public:
     {
         if (QtParcerClass->objectName().isEmpty())
             QtParcerClass->setObjectName(QStringLiteral("QtParcerClass"));
-        QtParcerClass->resize(800, 400);
+        QtParcerClass->resize(957, 399);
         QFont font;
         font.setPointSize(8);
         QtParcerClass->setFont(font);
@@ -55,44 +55,44 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(20, 25, 211, 30));
+        comboBox->setGeometry(QRect(70, 25, 211, 30));
         QFont font1;
         font1.setPointSize(12);
         comboBox->setFont(font1);
         label_weather = new QLabel(centralWidget);
         label_weather->setObjectName(QStringLiteral("label_weather"));
-        label_weather->setGeometry(QRect(500, 80, 181, 33));
+        label_weather->setGeometry(QRect(610, 80, 181, 33));
         QFont font2;
         font2.setPointSize(16);
         label_weather->setFont(font2);
         label_temperature = new QLabel(centralWidget);
         label_temperature->setObjectName(QStringLiteral("label_temperature"));
-        label_temperature->setGeometry(QRect(260, 80, 216, 33));
+        label_temperature->setGeometry(QRect(370, 80, 216, 33));
         label_temperature->setFont(font2);
         label_data_time = new QLabel(centralWidget);
         label_data_time->setObjectName(QStringLiteral("label_data_time"));
-        label_data_time->setGeometry(QRect(250, 30, 511, 21));
+        label_data_time->setGeometry(QRect(370, 30, 511, 21));
         label_data_time->setFont(font2);
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(20, 80, 211, 192));
+        listWidget->setGeometry(QRect(20, 80, 331, 192));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(70, 290, 111, 28));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(640, 260, 142, 49));
-        formLayout = new QFormLayout(widget);
+        pushButton->setGeometry(QRect(130, 290, 111, 28));
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(780, 260, 142, 49));
+        formLayout = new QFormLayout(layoutWidget);
         formLayout->setSpacing(6);
         formLayout->setContentsMargins(11, 11, 11, 11);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         formLayout->setContentsMargins(0, 0, 0, 0);
-        checkBox_file_write = new QCheckBox(widget);
+        checkBox_file_write = new QCheckBox(layoutWidget);
         checkBox_file_write->setObjectName(QStringLiteral("checkBox_file_write"));
 
         formLayout->setWidget(0, QFormLayout::LabelRole, checkBox_file_write);
 
-        checkBox_change_list = new QCheckBox(widget);
+        checkBox_change_list = new QCheckBox(layoutWidget);
         checkBox_change_list->setObjectName(QStringLiteral("checkBox_change_list"));
 
         formLayout->setWidget(1, QFormLayout::LabelRole, checkBox_change_list);
@@ -100,7 +100,7 @@ public:
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 26));
+        menuBar->setGeometry(QRect(0, 0, 957, 26));
         QtParcerClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(QtParcerClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

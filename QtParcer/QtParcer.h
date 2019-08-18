@@ -11,6 +11,7 @@
 #include <qtimer.h>
 #include <qmap.h>
 #include <qcheckbox.h>
+#include <qfile>
 #include "ui_QtParcer.h"
 
 
@@ -22,12 +23,14 @@ public:
 	QtParcer(QWidget *parent = Q_NULLPTR);
 
 private:
+	
 	Ui::QtParcerClass ui;
 	QNetworkAccessManager* manager;
 	QMap<int, QString>city;
 	QMap<int, QString>::iterator it;
 	bool b1 = true;
 	double current_t;
+	QString city_name;
 	QString gismeteo;
 	QString get_html;
 	QString temperature;

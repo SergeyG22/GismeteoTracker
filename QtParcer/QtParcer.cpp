@@ -7,7 +7,7 @@
 #include <qdatetime.h>
 #include <qlistwidget.h>
 #include <qfile.h>
-
+#include <qtextstream.h>
 
 // utf-8 for git
 
@@ -16,7 +16,10 @@ QtParcer::QtParcer(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	
+	ui.checkBox_change_list->setChecked(Qt::Checked); // переводит "сохранять записи" в состояние вкл. по умолчанию
+	ui.checkBox_file_write->setChecked(Qt::Checked); // переводит "сохранять в файл" в состоянии вкл. по умолчанию
+
+
 	manager = new QNetworkAccessManager(this); // создаем обьект подключения
 	connect(ui.comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),this,&QtParcer::send_to);
 	connect(ui.comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &QtParcer::clear1);
@@ -97,9 +100,24 @@ void QtParcer::replyFinished()
 		if (current_t != temperature.toDouble())                   // если значения отличаются друг от друга 
 		{
 			current_t = temperature.toDouble();                    // присваиваем текущее значение прошлому и 
-			ui.listWidget->addItem(temperature + ' ' + current_time()); // добавляем в список для отображения 		
+			ui.listWidget->addItem(temperature+' '+ui.comboBox->currentText() + ' ' + current_time()); // добавляем в список для отображения 		
 		}
-		//codec->toUnicode(content.data())
+		
+		if (ui.checkBox_file_write->isChecked())
+		{
+	
+			QFile f("weather.txt");
+			if (!f.open(QIODevice ::Append|QIODevice::WriteOnly | QIODevice::Text)) return;
+			{
+				QTextStream out(&f);
+				out << temperature+' '+ ui.comboBox->currentText() + ' ' + current_time() + '\n';
+				f.close();
+			}
+			
+		}
+		
+
+
 	}
 	else                                                            // если ошибка
 	{ 
@@ -141,7 +159,8 @@ void QtParcer::insert_city_http() // функция добавляет горо�
 }
 
 void QtParcer::insert_city_combo_box() // функция добавляет города в комбо-бокс
-{
+{ 
+	
 	ui.comboBox->addItem(QString::fromLocal8Bit("Архангельск"),3915);
 	ui.comboBox->addItem(QString::fromLocal8Bit("Омск"), 4578);
 	ui.comboBox->addItem(QString::fromLocal8Bit("Воронеж"), 5026);
