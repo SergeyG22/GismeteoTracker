@@ -46,7 +46,7 @@ private:
 	void insert_city_combo_box();
 	void draw_graph_t();
 	QDateTime data;
-	
+	QCPGraph* dwPoints;
 	inline QString current_time()
 	{
 		data = QDateTime::currentDateTime();

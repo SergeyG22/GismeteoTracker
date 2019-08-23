@@ -11,7 +11,7 @@
 #include <qtextstream.h>
 #include <qcustomplot.h>
 
-// utf-8 for git
+
 
 
 QtParcer::QtParcer(QWidget* parent)
@@ -21,6 +21,7 @@ QtParcer::QtParcer(QWidget* parent)
 	ui.checkBox_change_list->setChecked(Qt::Checked); // переводит "сохранять записи" в состояние вкл. по умолчанию
 	ui.checkBox_file_write->setChecked(Qt::Checked); // переводит "сохранять в файл" в состоянии вкл. по умолчанию	
 	draw_graph_t();
+	graph();
 	manager = new QNetworkAccessManager(this); // создаем обьект подключения
 	connect(ui.comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),this,&QtParcer::send_to);
 	connect(ui.comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &QtParcer::clear1);
@@ -34,21 +35,24 @@ QtParcer::QtParcer(QWidget* parent)
 	draw_graph = new QTimer(this);
 
 	connect(draw_graph, &QTimer::timeout,this,&QtParcer::graph);
-
 	connect(timer_data_change, &QTimer::timeout, this, &QtParcer::current_time);
 	connect(timer_get_weather, &QTimer::timeout, this, &QtParcer::send_to);
 	connect(ui.pushButton, &QPushButton::clicked, this,&QtParcer::clear1);
 
-
+	
 	draw_graph->start(60005);
 	timer_data_change->start(1000);
 	timer_get_weather->start(60000);
+	
 }
+
+
+
 
 
 void QtParcer::send_to() // функция отправляет запрос
 {
-	
+
 	it = city.begin();
 
 	for (; it != city.end(); ++it)
@@ -107,7 +111,7 @@ void QtParcer::replyFinished()
 		{
 			current_t = temperature.toDouble();// присваиваем текущее значение прошлому и 	
 			ui.listWidget->addItem(temperature+' '+ui.comboBox->currentText() + ' ' + current_time()); // добавляем в список для отображения
-
+						
 		}
 		
 		if (ui.checkBox_file_write->isChecked())
@@ -128,7 +132,8 @@ void QtParcer::replyFinished()
 	}
 
 	
-	reply->deleteLater();                                       //удаляем обьект ответа
+	reply->deleteLater();  //удаляем обьект ответа
+	graph();
 }
 
 void QtParcer::clear1()
@@ -141,7 +146,7 @@ void QtParcer::clear_graph()
 	ui.widget->graph(0)->data()->clear();
 	ui.widget->replot();
 	y_temperature.clear();
-	x_time.clear();
+	x_time.clear();	
 }
 
 
@@ -150,10 +155,9 @@ void QtParcer::graph() // функция перересовывает графи
 	t = t.currentTime();
 	y_temperature.push_back(current_t); // текущая температура
 	x_time.push_back((double)t.minute()); // количество минут
-	if ((double)t.minute > 59) { clear_graph();} // стираем график если больше 59
-
+	if ((double)t.minute() > 59) { clear_graph();} // стираем график если больше 59
 	ui.widget->graph(0)->setData(x_time, y_temperature);
-	ui.widget->replot();
+	ui.widget->replot();	
 }
 
 
@@ -190,14 +194,32 @@ void QtParcer::insert_city_combo_box() // функция добавляет го
 	ui.comboBox->addItem(QString::fromLocal8Bit("Томск"), 4652);
 	ui.comboBox->addItem(QString::fromLocal8Bit("Пермь"), 4476);
 	ui.comboBox->addItem(QString::fromLocal8Bit("Уфа"), 4588);
-
 }
 
 void QtParcer::draw_graph_t() // функция отрисовывает и инициализирует интерфейс графика при первом запуске программы
 {
 	ui.widget->addGraph();	
-	ui.widget->xAxis->setLabel("Time");
-	ui.widget->yAxis->setLabel("Temperature");
+
+	QSharedPointer<QCPAxisTickerFixed> fixedTickerX(new QCPAxisTickerFixed);
+	ui.widget->xAxis->setTicker(fixedTickerX);
+	fixedTickerX->setTickStep(5.0); 
+	fixedTickerX->setScaleStrategy(QCPAxisTickerFixed::ssNone);
+
+	QSharedPointer<QCPAxisTickerFixed> fixedTickerY(new QCPAxisTickerFixed);
+	ui.widget->yAxis->setTicker(fixedTickerY);
+	fixedTickerY->setTickStep(5.0);
+	fixedTickerY->setScaleStrategy(QCPAxisTickerFixed::ssNone);
+
+	ui.widget->graph(0)->setPen(QPen(Qt::red));
+	ui.widget->graph(0)->setAdaptiveSampling(false);
+	ui.widget->graph(0)->setLineStyle(QCPGraph::lsNone);
+	ui.widget->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
+	ui.widget->graph(0)->setPen(QPen(QBrush(Qt::red), 2));
+	ui.widget->graph(0)->addData(x_time, y_temperature);
+	
+
+	ui.widget->xAxis->setLabel("Time in minutes");
+	ui.widget->yAxis->setLabel("Temperature C");
 	ui.widget->xAxis->setRange(0, 60);   // время в часах
 	ui.widget->yAxis->setRange(-50, 50); // диапазон температуры	
 }

@@ -49,7 +49,7 @@ public:
     {
         if (QtParcerClass->objectName().isEmpty())
             QtParcerClass->setObjectName(QStringLiteral("QtParcerClass"));
-        QtParcerClass->resize(957, 784);
+        QtParcerClass->resize(957, 907);
         QFont font;
         font.setPointSize(8);
         QtParcerClass->setFont(font);
@@ -101,7 +101,7 @@ public:
 
         widget = new QCustomPlot(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(40, 350, 891, 361));
+        widget->setGeometry(QRect(40, 350, 891, 481));
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
