@@ -1,6 +1,6 @@
 #include "QtParcer.h"
 #include <QtWidgets/QApplication>
-
+#include <qcustomplot.h>
 
 
 int main(int argc, char *argv[])

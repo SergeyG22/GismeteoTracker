@@ -22,6 +22,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -39,6 +40,7 @@ public:
     QFormLayout *formLayout;
     QCheckBox *checkBox_file_write;
     QCheckBox *checkBox_change_list;
+    QCustomPlot *widget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -47,7 +49,7 @@ public:
     {
         if (QtParcerClass->objectName().isEmpty())
             QtParcerClass->setObjectName(QStringLiteral("QtParcerClass"));
-        QtParcerClass->resize(957, 399);
+        QtParcerClass->resize(957, 784);
         QFont font;
         font.setPointSize(8);
         QtParcerClass->setFont(font);
@@ -97,6 +99,9 @@ public:
 
         formLayout->setWidget(1, QFormLayout::LabelRole, checkBox_change_list);
 
+        widget = new QCustomPlot(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        widget->setGeometry(QRect(40, 350, 891, 361));
         QtParcerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(QtParcerClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
